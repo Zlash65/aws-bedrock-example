@@ -27,7 +27,7 @@ def generate_dockerfile(language: str) -> str:
   try:
     bedrock = boto3.client("bedrock-runtime", region_name="ap-south-1",
                             config=botocore.config.Config(read_timeout=300, retries={"max_attempts": 3}))
-    response = bedrock.invoke_model(body=json.dumps(body), model_name="meta.llama3-8b-instruct-v1:0")
+    response = bedrock.invoke_model(body=json.dumps(body), modelId="meta.llama3-8b-instruct-v1:0")
 
     response_content = response.get("body").read().decode("utf-8")
     response_data = json.loads(response_content)
