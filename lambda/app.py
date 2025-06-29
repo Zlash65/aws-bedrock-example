@@ -5,9 +5,8 @@ import botocore.config
 from datetime import datetime
 
 def generate_dockerfile(language: str) -> str:
-  formatted_prompt = f"""
-  <|begin_of_text|><|start_header_id|>user<|end_header_id|>
-  ONLY Generate an ideal Dockerfile for {language} with best practices. Do not provide any description
+  formatted_prompt = f"""<|begin_of_text|><|start_header_id|>user<|end_header_id|>
+  ONLY generate an ideal Dockerfile for {language} with best practices. Do not provide any explanation.
   Include:
   - Base image
   - Installing dependencies
@@ -20,7 +19,7 @@ def generate_dockerfile(language: str) -> str:
 
   body = {
     "prompt": formatted_prompt,
-    "max_gen_len": 512,
+    "max_gen_len": 1024,
     "temperature": 0.5,
   }
 
