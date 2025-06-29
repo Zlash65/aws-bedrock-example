@@ -55,6 +55,27 @@ resource "aws_iam_role_policy_attachment" "s3" {
   policy_arn = aws_iam_policy.s3.arn
 }
 
+resource "aws_iam_policy" "bedrock" {
+  name = "aws-bedrock-example-lambda-bedrock"
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect   = "Allow",
+        Action   = [
+          "bedrock:InvokeModel"
+        ],
+        Resource = "arn:aws:bedrock:*::foundation-model/*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "bedrock" {
+  role       = aws_iam_role.main.name
+  policy_arn = aws_iam_policy.bedrock.arn
+}
+
 resource "aws_lambda_function" "main" {
   function_name    = "aws-bedrock-example"
   role             = aws_iam_role.main.arn
