@@ -48,8 +48,7 @@ def save_dockerfile(s3_key: str, s3_bucket: str, dockerfile: str) -> str:
       Body=dockerfile,
       Bucket=s3_bucket,
       Key=s3_key,
-      ContentType="text/plain",
-      ACL="public-read"
+      ContentType="text/plain"
     )
 
     print("Dockerfile saved to S3")
