@@ -1,0 +1,38 @@
+# macOS
+.DS_Store
+
+# Python cache and bytecode
+__pycache__/
+*.py[cod]
+
+# Python virtual environments
+env/
+venv/
+.venv/
+
+# Logs and local debugging files
+*.log
+*.tmp
+*.bak
+
+# IDE/editor configs
+.vscode/
+.idea/
+*.swp
+
+# Git metadata
+.git/
+.gitignore
+
+# Terraform build and state files
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+.terraform.lock.hcl
+
+# Lambda package build outputs
+lambda_build/
+
+# Other misc
+Thumbs.db
+ehthumbs.db
