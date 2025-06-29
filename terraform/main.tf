@@ -26,7 +26,7 @@ resource "aws_iam_role_policy_attachment" "main" {
 }
 
 resource "aws_s3_bucket" "main" {
-  bucket = "aws-bedrock-example"
+  bucket = "zlash65-aws-bedrock-example"
 }
 
 resource "aws_iam_policy" "s3" {

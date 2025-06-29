@@ -65,7 +65,7 @@ def handler(event, context):
 
   dockerfile = generate_dockerfile(language)
   current_time = datetime.now().strftime("%H-%M-%S")
-  s3_bucket = "aws-bedrock-example"
+  s3_bucket = "zlash65-aws-bedrock-example"
 
   if dockerfile:
     s3_key = f"dockerfiles/{language}-{current_time}.Dockerfile"
