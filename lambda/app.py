@@ -5,7 +5,7 @@ import botocore.config
 from datetime import datetime
 
 def generate_dockerfile(language: str) -> str:
-  formatted_prompt = f"""<|begin_of_text|><|start_header_id|>user<|end_header_id|>
+  formatted_prompt = f"""
   ONLY generate an ideal Dockerfile for {language} with best practices. Do not provide any explanation.
   Include:
   - Base image
@@ -13,8 +13,6 @@ def generate_dockerfile(language: str) -> str:
   - Setting working directory
   - Adding source code
   - Running the application
-  <|eot_id|>
-  <|start_header_id|>assistant<|end_header_id|>
   """
 
   body = {
@@ -23,8 +21,6 @@ def generate_dockerfile(language: str) -> str:
     "temperature": 0.5,
     "top_p": 0.9
   }
-
-  print(body)
 
   try:
     bedrock = boto3.client("bedrock-runtime", region_name="ap-south-1",
@@ -42,8 +38,8 @@ def generate_dockerfile(language: str) -> str:
     print("Error generating Dockerfile:", e)
     return ""
 
-def save_dockerfile(s3_key: str, s3_bucket: str, dockerfile: str) -> str:
-  s3 = boto3.client("s3")
+def save_dockerfile(s3_key: str, s3_bucket: str, dockerfile: str, expiry: int = 3600) -> str:
+  s3 = boto3.client("s3", region_name="ap-south-1", endpoint_url="https://s3.ap-south-1.amazonaws.com")
 
   try:
     s3.put_object(
@@ -54,7 +50,7 @@ def save_dockerfile(s3_key: str, s3_bucket: str, dockerfile: str) -> str:
     )
 
     print("Dockerfile saved to S3")
-    return f"https://{s3_bucket}.s3.amazonaws.com/{s3_key}"
+    return s3.generate_presigned_url("get_object", Params={"Bucket": s3_bucket, "Key": s3_key}, ExpiresIn=expiry)
 
   except Exception as e:
     print("Error saving Dockerfile to S3:", e)
