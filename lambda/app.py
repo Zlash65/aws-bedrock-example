@@ -21,7 +21,10 @@ def generate_dockerfile(language: str) -> str:
     "prompt": formatted_prompt,
     "max_gen_len": 1024,
     "temperature": 0.5,
+    "top_p": 0.9
   }
+
+  print(body)
 
   try:
     bedrock = boto3.client("bedrock-runtime", region_name="ap-south-1",
