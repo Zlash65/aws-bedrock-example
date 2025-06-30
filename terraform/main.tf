@@ -61,8 +61,8 @@ resource "aws_iam_policy" "bedrock" {
     Version = "2012-10-17",
     Statement = [
       {
-        Effect   = "Allow",
-        Action   = [
+        Effect = "Allow",
+        Action = [
           "bedrock:InvokeModel"
         ],
         Resource = "arn:aws:bedrock:*::foundation-model/*"
